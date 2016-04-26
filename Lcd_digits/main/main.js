@@ -1,21 +1,16 @@
 /**
  * Created by sun on 16-4-21.
  */
-function printLcdDigits(input){
+function creatLcdDigits(input){
     
     var digitsArray=buildDigitArray(input);
 
     var lcds=loadLcdDigits();
     var lcdDigits=buildLcdDigts(digitsArray,lcds);
 
-    buildLcdDigitsPrint(lcdDigits);
-
-
+    buildLcdDigitText(lcdDigits);
 }
 
-/**
- * Created by sun on 16-4-21.
- */
 function loadLcdDigits(){
 
     return[
@@ -113,12 +108,6 @@ function loadLcdDigits(){
     ]
 }
 
-
-
-
-
-
-
 function　buildDigitArray(input){
     var digitsArray=[];
 
@@ -127,51 +116,39 @@ function　buildDigitArray(input){
     return digitsArray;
 }
 
-
-
 function findLcdDigits(digit,lcds){
     for(var i=0;i<lcds.length;i++){
         if(digit===lcds[i].digit)
+
             return lcds[i];
     }
 }
 
 function buildLcdDigts(digitsArray,lcds){
-
     var lcdDigits=[];
 
     digitsArray.forEach(function(digit){
-
        var lcd=findLcdDigits(digit,lcds);
 
         if(lcd){
             lcdDigits.push({lcdDigit:lcd.lcdDigit});
         }
-
     });
-    return lcdDigits;
     
+    return lcdDigits;
 }
 
-function   buildLcdDigitsPrint(lcdDigits){
+function   buildLcdDigitText(lcdDigits){
     var lcdDigitText='';
+    var lcdDigitText1='';
+    var lcdDigitText2='';
+    var lcdDigitText3='';
 
     lcdDigits.forEach(function(lcdDigit){
-        lcdDigitText+=lcdDigit.lcdDigit.firstline+' ';
+        lcdDigitText1+=lcdDigit.lcdDigit.firstline+' ';
+        lcdDigitText2+=lcdDigit.lcdDigit.secondline+' ';
+        lcdDigitText3+=lcdDigit.lcdDigit.thirdline+' ';
     });
-
-    lcdDigitText+='\n';
-
-    lcdDigits.forEach(function(lcdDigit){
-        lcdDigitText+=lcdDigit.lcdDigit.secondline+' ';
-    });
-
-    lcdDigitText+='\n';
-
-    lcdDigits.forEach(function(lcdDigit){
-        lcdDigitText+=lcdDigit.lcdDigit.thirdline+' ';
-    });
-
+    lcdDigitText=lcdDigitText1+'\n'+lcdDigitText2+'\n'+lcdDigitText3;
     console.log(lcdDigitText);
-
 }
