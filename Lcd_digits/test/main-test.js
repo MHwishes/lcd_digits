@@ -12,18 +12,21 @@ describe("lcd_digits",function(){
 
         spyOn(console, 'log');
 
-        printLcdDigits("910");
+        creatLcdDigits("910");
 
         expectText='._. ... ._. '+'\n'
             +'|_| ..| |.| '+'\n'
             +'..| ..| |_| ';
 
         expect(console.log).toHaveBeenCalledWith(expectText);
-
-
     });
-
 });
+
+
+
+
+
+
 
 
 describe("buildDigitArray()",function(){
@@ -40,7 +43,7 @@ describe("buildLcdDigits()",function(){
     it("should get the correct LCD_digits",function(){
 
         var digitArray=['9','1','0'];
-        var lcds=lcdDigits();
+        var lcds=loadLcdDigits();
         
         var lcdDigts=buildLcdDigts(digitArray,lcds);
 
@@ -65,10 +68,9 @@ describe("buildLcdDigits()",function(){
 
         expect(lcdDigts).toEqual(expectResult);
     });
-    
 });
 
-describe(" buildLcdDigitsPrint()",function(){
+describe(" buildLcdDigitText()",function(){
     
     it("should print correct digits",function(){
 
@@ -92,12 +94,11 @@ describe(" buildLcdDigitsPrint()",function(){
         }}];
 
         spyOn(console, 'log');
-        buildLcdDigitsPrint(lcdDigits);
+        buildLcdDigitText(lcdDigits);
         expectText='._. ... ._. '+'\n'
                   +'|_| ..| |.| '+'\n'
                   +'..| ..| |_| ';
         expect(console.log).toHaveBeenCalledWith(expectText);
 
     })
-    
 });
