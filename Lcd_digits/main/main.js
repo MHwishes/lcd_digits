@@ -1,154 +1,104 @@
-/**
- * Created by sun on 16-4-21.
- */
-function creatLcdDigits(input){
-    
-    var digitsArray=buildDigitArray(input);
+function creatLcdDigits(input) {
 
-    var lcds=loadLcdDigits();
-    var lcdDigits=buildLcdDigts(digitsArray,lcds);
+    var digitsArray = buildDigitArray(input);
+
+    var lcds = loadLcdDigits();
+    var lcdDigits = buildLcdDigts(digitsArray, lcds);
 
     buildLcdDigitText(lcdDigits);
 }
-
-function loadLcdDigits(){
-
-    return[
+function loadLcdDigits() {
+    return [
         {
-            digit:'0',
-            lcdDigit:{
-                firstline:'._.',
-                secondline:'|.|',
-                thirdline:'|_|'
-
-            }
+            digit: '0',
+            partLcdDigits: ['._.', '|.|', '|_|']
         },
         {
-            digit:'1',
-            lcdDigit:{
-                firstline:'...',
-                secondline:'..|',
-                thirdline:'..|'
-
-            }
+            digit: '1',
+            partLcdDigits: ['...', '..|', '..|']
         },
         {
-            digit:'2',
-            lcdDigit:{
-                firstline:'._.',
-                secondline:'._|',
-                thirdline:'|_.'
-
-            }
+            digit: '2',
+            partLcdDigits: ['._.', '._|', '|_.']
         },
         {
-            digit:'3',
-            lcdDigit:{
-                firstline:'._.',
-                secondline:'._|',
-                thirdline:'._|'
-
-            }
+            digit: '3',
+            partLcdDigits: ['._.', '._|', '._|']
         },
         {
-            digit:'4',
-            lcdDigit:{
-                firstline:'...',
-                secondline:'|_|',
-                thirdline:'|_|'
-
-            }
+            digit: '4',
+            partLcdDigits: ['...', '|_|', '..|']
         },
         {
-            digit:'5',
-            lcdDigit:{
-                firstline:'._.',
-                secondline:'|_.',
-                thirdline:'._|'
-
-            }
+            digit: '5',
+            partLcdDigits: ['._.', '|_.', '._|']
         },
         {
-            digit:'6',
-            lcdDigit:{
-                firstline:'._.',
-                secondline:'|_.',
-                thirdline:'|_|'
-
-            }
+            digit: '6',
+            partLcdDigits: ['._.', '|_.', '|_|']
         },
         {
-            digit:'7',
-            lcdDigit:{
-                firstline:'._.',
-                secondline:'..|',
-                thirdline:'..|'
-
-            }
+            digit: '7',
+            partLcdDigits: ['._.', '..|', '..|']
         },
         {
-            digit:'8',
-            lcdDigit:{
-                firstline:'._.',
-                secondline:'|_|',
-                thirdline:'|_|'
-
-            }
+            digit: '8',
+            partLcdDigits: ['._.', '|_|', '|_|']
         },
         {
-            digit:'9',
-            lcdDigit:{
-                firstline:'._.',
-                secondline:'|_|',
-                thirdline:'..|'
-
-            }
+            digit: '9',
+            partLcdDigits: ['._.', '|_|', '..|']
         }
-
-    ]
+    ];
 }
 
-function　buildDigitArray(input){
-    var digitsArray=[];
+function buildDigitArray(input) {
+    var digitsArray = [];
 
-    digitsArray=input.split("");
+    digitsArray = input.split("");
 
     return digitsArray;
 }
 
-function findLcdDigits(digit,lcds){
-    for(var i=0;i<lcds.length;i++){
-        if(digit===lcds[i].digit)
+function findLcdDigits(digit, lcds) {
+    for (var i = 0; i < lcds.length; i++) {
+        if (digit === lcds[i].digit)
 
-            return lcds[i];
+            return lcds[i].partLcdDigits;
     }
 }
 
-function buildLcdDigts(digitsArray,lcds){
-    var lcdDigits=[];
+function buildLcdDigts(digitsArray, lcds) {
+    var lcdDigits = [];
 
-    digitsArray.forEach(function(digit){
-       var lcd=findLcdDigits(digit,lcds);
+    digitsArray.forEach(function (digit) {
+        var lcd = findLcdDigits(digit, lcds);
 
-        if(lcd){
-            lcdDigits.push({lcdDigit:lcd.lcdDigit});
+        if (lcd) {
+            lcdDigits.push(lcd);
         }
     });
-    
+
     return lcdDigits;
 }
 
-function   buildLcdDigitText(lcdDigits){
-    var lcdDigitText='';
-    var lcdDigitText1='';
-    var lcdDigitText2='';
-    var lcdDigitText3='';
+function buildLcdPart(lcdDigitText, lcdDigits, k) {
+    lcdDigits.forEach(function (lcdDigit) {
+        lcdDigitText += lcdDigit[k] + ' ';
 
-    lcdDigits.forEach(function(lcdDigit){
-        lcdDigitText1+=lcdDigit.lcdDigit.firstline+' ';
-        lcdDigitText2+=lcdDigit.lcdDigit.secondline+' ';
-        lcdDigitText3+=lcdDigit.lcdDigit.thirdline+' ';
     });
-    lcdDigitText=lcdDigitText1+'\n'+lcdDigitText2+'\n'+lcdDigitText3;
+
+    return lcdDigitText;
+}
+
+function buildLcdDigitText(lcdDigits) {
+    var lcdDigitText = '';
+
+    for (var k = 0; k < 3; k++) {
+        lcdDigitText = buildLcdPart(lcdDigitText, lcdDigits, k);
+        if (k < 2)
+            lcdDigitText += '\n';
+    }
+
     console.log(lcdDigitText);
 }
